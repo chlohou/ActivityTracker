@@ -29,11 +29,19 @@ class ViewController: UIViewController {
     @IBAction func startStopButtonPress(_ sender: UIButton) {
         if sender.titleLabel?.text == "Start" {
             // 1. Start the pedometer
+            stepCounter.startUpdates(from: Date(), withHandler: { (stepData, error) in
+                if let counterData = stepData{
+                    self.stepCountLabel.text = "Steps:\(counterData.numberOfSteps)"
+                } else {
+                    self.stepCountLabel.text = "Steps: Not Available"
+                }
+            })
             // 2. Record the steps, distance, and pace
             // 3. Change Start to Stop
             sender.setTitle("Stop", for: .normal)
         } else {
             // Stop the pedometer
+            stepCounter.stopUpdates()
             // Segue to the next screen to display stats
         }
     }
