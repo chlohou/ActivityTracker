@@ -24,16 +24,24 @@ class ViewController: UIViewController {
     @IBOutlet weak var stepCountLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var paceLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     
-
     @IBAction func startStopButtonPress(_ sender: UIButton) {
         if sender.titleLabel?.text == "Start" {
             // 1. Start the pedometer
-            stepCounter.startUpdates(from: Date(), withHandler: { (stepData, error) in
+            startTimer()
+            self.stepCounter.startUpdates(from: Date(), withHandler: { (stepData, error) in
                 if let counterData = stepData{
-                    self.stepCountLabel.text = "Steps:\(counterData.numberOfSteps)"
+                    self.steps = Int(counterData.numberOfSteps)
+                    if let distance = counterData.distance {
+                    self.distance = Double(distance)
+                    }
+                    if let pace = counterData.currentPace {
+                    self.pace = Double(pace)
+                    }
+                    
                 } else {
-                    self.stepCountLabel.text = "Steps: Not Available"
+                    
                 }
             })
             // 2. Record the steps, distance, and pace
@@ -42,6 +50,8 @@ class ViewController: UIViewController {
         } else {
             // Stop the pedometer
             stepCounter.stopUpdates()
+            stopTimer()
+            sender.setTitle("Start", for: .normal)
             // Segue to the next screen to display stats
         }
     }
@@ -73,7 +83,43 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+// update the labels
+    func displayPedometerData(){
+        //Time Elapsed
+        timeElapsed += self.timerInterval
+        statusLabel.text = "On: " + timeIntervalFormat(interval: timeElapsed)
+        //Number of steps
+            stepCountLabel.text = String(format:"Steps: %i", self.steps)
+        //Distance
+        distanceLabel.text = String(format:"Distance: %i", self.distance)
+        //Pace
+        paceLabel.text = String(format:"Pace: %i", self.pace)
+        }
 
-
+// creating the timer
+    func startTimer(){
+        if timer.isValid { timer.invalidate() }
+       timer = Timer.scheduledTimer(timeInterval: timerInterval,target: self,selector: #selector(timerAction(timer:)) ,userInfo: nil,repeats: true)
+    }
+    
+    func stopTimer(){
+        timer.invalidate()
+        displayPedometerData()
+    }
+    
+    func timerAction(timer: Timer) {
+        displayPedometerData()
+    }
+    
+    // convert seconds to hh:mm:ss as a string
+    func timeIntervalFormat(interval:TimeInterval)-> String{
+        var seconds = Int(interval + 0.5) //round up seconds
+        let hours = seconds / 3600
+        let minutes = (seconds / 60) % 60
+        seconds = seconds % 60
+        return String(format:"%02i:%02i:%02i",hours,minutes,seconds)
+    }
+    
 }
 
