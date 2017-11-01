@@ -15,7 +15,9 @@ class ViewController: UIViewController {
     let stepCounter = CMPedometer()
     var steps = 0
     var distance = 0.0
+    var convertedDistance = 0.0
     var pace = 0.0
+    var averagePace = 0.0
     
     var timer = Timer()
     let timerInterval = 1.0
@@ -25,6 +27,34 @@ class ViewController: UIViewController {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var paceLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var unitConversionSwitch: UISwitch!
+    
+    func mileConversion(meters:Double)-> Double{
+        let mile = 0.000621371192
+        return meters * mile
+    }
+    
+    func averagePaceCalculation(distance: Double) -> Double {
+        if distance != 0.0 {
+            pace = distance / timeElapsed
+            return pace
+        } else {
+            return 0.0
+        }
+    }
+    
+        func paceConversion(title:String,pace:Double) -> String{
+            var minPerMile = 0.0
+            let factor = 26.8224 //conversion factor
+            if pace != 0 {
+                minPerMile = factor / pace
+            }
+            let minutes = Int(minPerMile)
+            let seconds = Int(minPerMile * 60) % 60
+            return String(format: "%@: %02.2f m/s \n\t\t %02i:%02i min/mi",title,pace,minutes,seconds)
+        }
+    
+
     
     @IBAction func startStopButtonPress(_ sender: UIButton) {
         if sender.titleLabel?.text == "Start" {
@@ -39,8 +69,6 @@ class ViewController: UIViewController {
                     if let pace = counterData.currentPace {
                     self.pace = Double(pace)
                     }
-                    
-                } else {
                     
                 }
             })
@@ -65,12 +93,6 @@ class ViewController: UIViewController {
     
     3. The user's stats shall be displayed upon completion of data tracking (the workout)
     
-    4. The app shall display step count
-    
-    5. The app shall display distance
-    
-    6. The app shall display pace
-    
     I will be using core motion, multiple views, and dynamic user input
   */
     
@@ -91,6 +113,9 @@ class ViewController: UIViewController {
         statusLabel.text = "On: " + timeIntervalFormat(interval: timeElapsed)
         //Number of steps
             stepCountLabel.text = String(format:"Steps: %i", self.steps)
+        
+        // if statement for boolean slider
+        
         //Distance
         distanceLabel.text = String(format:"Distance: %i", self.distance)
         //Pace
@@ -121,5 +146,33 @@ class ViewController: UIViewController {
         return String(format:"%02i:%02i:%02i",hours,minutes,seconds)
     }
     
+    // convert a pace in meters per second to a string with
+    // the metric m/s and the Imperial minutes per mile
+    func paceString(title:String,pace:Double) -> String{
+        var minPerMile = 0.0
+        let factor = 26.8224 //conversion factor
+        if pace != 0 {
+            minPerMile = factor / pace
+        }
+        let minutes = Int(minPerMile)
+        let seconds = Int(minPerMile * 60) % 60
+        return String(format: "%@: %02.2f m/s \n\t\t %02i:%02i min/mi",title,pace,minutes,seconds)
+    }
+
+    
+    @IBAction func segueToStats(_ sender: UIButton) {
+       self.performSegue(withIdentifier: "segue", sender: self)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destVC = segue.destination as! StatsViewController
+        destVC.finalStepCount =  stepCountLabel.text
+    }
+
+    
+    override func performSegue(withIdentifier identifier: String, sender: Any?) {
+        
+    }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A092FA0B1FA92B2100EB5477 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A092FA0A1FA92B2100EB5477 /* StatsViewController.swift */; };
 		A09CDD181FA7CC4E00CFCEE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CDD171FA7CC4E00CFCEE6 /* AppDelegate.swift */; };
 		A09CDD1A1FA7CC4E00CFCEE6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CDD191FA7CC4E00CFCEE6 /* ViewController.swift */; };
 		A09CDD1D1FA7CC4E00CFCEE6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A09CDD1B1FA7CC4E00CFCEE6 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A092FA0A1FA92B2100EB5477 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		A09CDD141FA7CC4E00CFCEE6 /* ActivityTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActivityTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A09CDD171FA7CC4E00CFCEE6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A09CDD191FA7CC4E00CFCEE6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			children = (
 				A09CDD171FA7CC4E00CFCEE6 /* AppDelegate.swift */,
 				A09CDD191FA7CC4E00CFCEE6 /* ViewController.swift */,
+				A092FA0A1FA92B2100EB5477 /* StatsViewController.swift */,
 				A09CDD1B1FA7CC4E00CFCEE6 /* Main.storyboard */,
 				A09CDD1E1FA7CC4F00CFCEE6 /* Assets.xcassets */,
 				A09CDD201FA7CC4F00CFCEE6 /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A09CDD1A1FA7CC4E00CFCEE6 /* ViewController.swift in Sources */,
+				A092FA0B1FA92B2100EB5477 /* StatsViewController.swift in Sources */,
 				A09CDD181FA7CC4E00CFCEE6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,6 +308,7 @@
 				A09CDD281FA7CC4F00CFCEE6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
