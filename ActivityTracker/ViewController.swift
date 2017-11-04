@@ -44,8 +44,8 @@ class ViewController: UIViewController {
             if pace != 0 {
                 minPerMile = factor / pace
             }
-            let minutes = Int(minPerMile)
-            let seconds = Int(minPerMile * 60) % 60
+        //    let minutes = Int(minPerMile)
+        //    let seconds = Int(minPerMile * 60) % 60
             return Double(minPerMile)
         }
     
@@ -70,22 +70,30 @@ class ViewController: UIViewController {
     // Running the pedometer
     @IBAction func startStopButtonPress(_ sender: UIButton) {
         if sender.titleLabel?.text == "Start" {
+            
+            print("Step Count:  \(CMPedometer.isStepCountingAvailable())")
+            print("Distance: \(CMPedometer.isDistanceAvailable())")
+            print("Pace: \(CMPedometer.isPaceAvailable())")
             // 1. Start the pedometer
             startTimer()
             self.stepCounter.startUpdates(from: Date(), withHandler: { (stepData, error) in
+                print("in handler")
                 if let counterData = stepData{
-                    self.steps = Int(counterData.numberOfSteps)
+                    print("have data")
+                    self.steps = (counterData.numberOfSteps.intValue)
                     self.distance = (counterData.distance?.doubleValue)!
+                    print("steps: \(self.steps)")
+                    print("distance: \(self.distance)")
                     
                     /*
                     if let distance = counterData.distance {
                     self.distance = Double(distance)
                     }
- 
+ */
                     if let pace = counterData.currentPace {
                     self.pace = Double(pace)
                     }
-                    */
+ 
                     
                 }
             })
@@ -146,14 +154,14 @@ class ViewController: UIViewController {
         // if statement for boolean slider
         if unitConversionSwitch.isOn == false {
             self.distance = mileConversion(meters: distance)
-            distanceLabel.text = String(format:"Distance: %i miles", distance)
+            distanceLabel.text = String(format:"Distance: %.2f miles", distance)
             self.pace = paceConversion(pace: pace)
-            paceLabel.text = String(format:"Pace: %i min/mile", pace)
+            paceLabel.text = String(format:"Pace: %.2f min/mile", pace)
         } else {
             //Distance
-            distanceLabel.text = String(format:"Distance: %i meters", self.distance)
+            distanceLabel.text = String(format:"Distance: %.2f meters", self.distance)
             //Pace
-            paceLabel.text = String(format:"Pace: %i", self.pace)
+            paceLabel.text = String(format:"Pace: %.2f", self.pace)
         }
     }
     
