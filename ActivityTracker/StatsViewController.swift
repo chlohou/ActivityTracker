@@ -15,7 +15,6 @@ class StatsViewController: UIViewController {
     var averagePace : String!
     
     
-    
     @IBOutlet weak var finalAveragePaceLabel: UILabel!
     
     @IBOutlet weak var finalStepCountLabel: UILabel!
@@ -23,15 +22,18 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var finalDistanceLabel: UILabel!
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        finalStepCountLabel.text = finalStepCount
-        finalDistanceLabel.text = finalDistance
-        finalAveragePaceLabel.text = averagePace
+        finalStepCountLabel.text = (finalStepCount)
+        finalDistanceLabel.text = (finalDistance)
+        finalAveragePaceLabel.text = (averagePace)
        
         // Do any additional setup after loading the view.
     }
 
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
