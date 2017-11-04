@@ -51,7 +51,7 @@ class ViewController: UIViewController {
     
     func averagePaceCalculation(distance: Double) -> Double {
         if distance != 0.0 {
-            pace = distance / timeElapsed
+            averagePace = distance / timeElapsed
             return averagePace
         } else {
             return 0.0
@@ -81,10 +81,11 @@ class ViewController: UIViewController {
                     if let distance = counterData.distance {
                     self.distance = Double(distance)
                     }
- */
+ 
                     if let pace = counterData.currentPace {
                     self.pace = Double(pace)
                     }
+                    */
                     
                 }
             })
